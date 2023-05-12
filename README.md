@@ -59,6 +59,11 @@ A Logger for Hills
 5. Running the tests
    * Run the php unit tests
       * docker compose exec hills-app-php-fpm php artisan test
+   * Run the vue unit tests
+      * npm run test:unit
+   * Run the cypress component tests
+      * npm run test:cypress
+
 
 6. Stop the running containers
    * docker compose down --remove-orphans
