@@ -45,7 +45,6 @@ A Logger for Hills
 4. Using the containers
    * The code can be edited in an ide, the directory is mapped into the php and nginx directories
      * http://hills.test:8881
-
    * Access the db via cli
       * docker compose exec hills-app-mysql mysql -u hills_usr -phills_pw hills_dev
       * The db volume is mapped to ./docker/volumes/mysql so it persists
