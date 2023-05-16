@@ -18,11 +18,7 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [HillController::class, 'index'])->name('hills.index');
-
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [HillController::class, 'index'])->name('home');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
