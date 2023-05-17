@@ -1,0 +1,87 @@
+name: CI
+
+on:
+    push:
+        branches: ['main']
+    pull_request:
+        branches: ['main']
+
+jobs:
+    build-test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout step
+              uses: actions/checkout@v3
+            # - name: Todo Docker Layer Caching Cache
+            #   id: docker-cache
+            #   run: |
+            #       echo "TODO: Docker Layer Cache"
+            # - name: Todo Docker Registry
+            #   id: docker-registry
+            #   run: |
+            #       echo "TODO: Docker Registry"
+            - name: Restore Composer Cache Directory
+              id: restore-composer-cache
+              uses: actions/cache/restore@v3
+              with:
+                  path: /tmp/composer-cache/files
+                  key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+                  restore-keys: |
+                      ${{ runner.os }}-composer-
+            - name: Install composer dependencies
+              uses: php-actions/composer@v6
+              with:
+                  php_version: "8.2"
+            - name: Store Composer Cache Directory
+              id: store-composer-cache
+              uses: actions/cache/save@v3
+              with:
+                  path: /tmp/composer-cache/files
+                  key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+            - name: Start Docker Containers
+              run: |
+                  docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
+            - name: Configure Site
+              run: |
+                  chmod -R 777 storage
+                  mkdir -m 777 coverage
+                  cp .env.docker .env
+                  docker compose exec hills-app-php-fpm php artisan key:generate
+            - name: Use Node.js 
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18'
+                  cache: 'npm'
+            - name: Create Node Assets
+              run: |
+                  npm ci
+                  npm run build
+            - name: Run vitests
+              run: |
+                  npm run test:unit 
+              env:
+                LARAVEL_BYPASS_ENV_CHECK: 1
+            - name: Wait for mysql
+              run: |
+                echo 'pausing: waiting for mysql to come available'
+                ./docker/config/mysql/.wait-for-mysql.sh
+                echo 'un-pausing: mysql is now available'
+            - name: Run cypress tests
+              uses: cypress-io/github-action@v5
+              with:
+                  component: true
+                  browser: firefox              
+                  start: npm run dev
+              env:
+                LARAVEL_BYPASS_ENV_CHECK: 1
+            - name: PHP Test Step
+              run: docker exec hills-app-php-fpm php artisan test
+  
+            # - name: Todo Test Coverage
+            #   id: coverage-cache
+            #   run: |
+            #       echo "TODO: Test Coverage"
+            # - name: Todo Upload Assets
+            #   id: assets-cache
+            #   run: |
+            #       echo "TODO: Upload Assets"
