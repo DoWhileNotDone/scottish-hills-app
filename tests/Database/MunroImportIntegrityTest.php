@@ -7,10 +7,13 @@ namespace Tests\Database;
 use App\Models\Hill;
 use App\Models\Group;
 use Database\Seeders\MunrosFromCSVSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class MunroImportIntegrityTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Run a specific seeder before each test.
      *
