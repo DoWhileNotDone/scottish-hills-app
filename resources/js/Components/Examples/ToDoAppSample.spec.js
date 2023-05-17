@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { mount } from '@vue/test-utils';
-import ToDoAppSample from '@/js/Components/ToDoAppSample.vue';
+import ToDoAppSample from '@/Components/Examples/ToDoAppSample.vue';
 
 describe('ToDoAppSample', () => {
     it('renders properly', () => {
