@@ -10,11 +10,11 @@ RUN docker-php-ext-install zip
 FROM base AS develop
 
 # Add Pear/Pecl for library installation
-RUN apk update && apk add --no-cache -q --virtual .phpize-deps-configure $PHPIZE_DEPS
-# Install pcov for code coverage
-RUN pecl channel-update pecl.php.net && pecl install pcov && docker-php-ext-enable pcov
-# Remove Pear/Pecl for library installation
-RUN apk del --no-network .phpize-deps-configure
+RUN apk update && apk add --no-cache -q --virtual .phpize-deps-configure $PHPIZE_DEPS && \
+    # Install pcov for code coverage
+    pecl channel-update pecl.php.net && pecl install pcov && docker-php-ext-enable pcov && \
+    # Remove Pear/Pecl for library installation
+    apk del --no-network .phpize-deps-configure
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
