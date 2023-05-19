@@ -20,6 +20,22 @@
             <directory suffix=".php">./app</directory>
         </include>
     </source>
+    <coverage>
+        <report>
+            <clover outputFile="coverage/php/clover.xml"/>
+        </report>    
+    </coverage>
+
+    <!-- <coverage cacheDirectory="/path/to/directory"
+            includeUncoveredFiles="true"
+            processUncoveredFiles="true"
+            pathCoverage="false"
+            ignoreDeprecatedCodeUnits="true"
+            disableCodeCoverageIgnore="true">
+        <include>
+            <directory suffix=".php">app</directory>
+        </include>
+    </coverage> -->
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
