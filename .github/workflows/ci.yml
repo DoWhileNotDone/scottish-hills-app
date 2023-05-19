@@ -30,34 +30,38 @@ jobs:
               with:
                   path: /tmp/composer-cache/files
                   key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+            - name: Use Node.js 
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '18'
+                  cache: 'npm'                  
+            - name: Create Node Assets
+              run: |
+                  npm ci
+                  npm run build
             - name: Start Docker Containers
               run: |
                   docker compose -f docker-compose.yml -f docker-compose.ci.yml up -d
+            - name: Wait for mysql
+              run: |
+                  echo 'pausing: waiting for mysql to come available'
+                  ./docker/config/mysql/.wait-for-mysql.sh
+                  echo 'un-pausing: mysql is now available'
             - name: Configure Site
               run: |
                   chmod -R 777 storage
                   mkdir -m 777 coverage
                   cp .env.docker .env
                   docker compose exec hills-app-php-fpm php artisan key:generate
-            - name: Use Node.js 
-              uses: actions/setup-node@v3
-              with:
-                  node-version: '18'
-                  cache: 'npm'
-            - name: Create Node Assets
-              run: |
-                  npm ci
-                  npm run build
             - name: Run vitests
               run: |
                   npm run test:unit 
               env:
                 LARAVEL_BYPASS_ENV_CHECK: 1
-            - name: Wait for mysql
+            - name: Fix for Cypress Vite Runner
               run: |
-                echo 'pausing: waiting for mysql to come available'
-                ./docker/config/mysql/.wait-for-mysql.sh
-                echo 'un-pausing: mysql is now available'
+                  echo "The node_modules/.vite folder is root:root, so this restores it"
+                  sudo chown -R runner:docker node_modules/.vite
             - name: Run cypress tests
               uses: cypress-io/github-action@v5
               with:
