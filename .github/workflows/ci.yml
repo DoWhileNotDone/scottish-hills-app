@@ -12,14 +12,6 @@ jobs:
         steps:
             - name: Checkout step
               uses: actions/checkout@v3
-            # - name: Todo Docker Layer Caching Cache
-            #   id: docker-cache
-            #   run: |
-            #       echo "TODO: Docker Layer Cache"
-            # - name: Todo Docker Registry
-            #   id: docker-registry
-            #   run: |
-            #       echo "TODO: Docker Registry"
             - name: Restore Composer Cache Directory
               id: restore-composer-cache
               uses: actions/cache/restore@v3
@@ -76,11 +68,8 @@ jobs:
                 LARAVEL_BYPASS_ENV_CHECK: 1
             - name: PHP Test Step
               run: docker exec hills-app-php-fpm php artisan test
-  
-            # - name: Todo Test Coverage
-            #   id: coverage-cache
-            #   run: |
-            #       echo "TODO: Test Coverage"
+            - name: Upload coverage reports to Codecov
+              uses: codecov/codecov-action@v3
             # - name: Todo Upload Assets
             #   id: assets-cache
             #   run: |
