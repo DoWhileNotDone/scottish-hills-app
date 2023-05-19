@@ -27,9 +27,16 @@ A Logger for Hills
         - `127.0.0.1        hills.test`
 
 5. Create Database
+
     - docker compose exec hills-app-php-fpm php artisan migrate:install
     - docker compose exec hills-app-php-fpm php artisan migrate
     - docker compose exec hills-app-php-fpm php artisan db:seed
+
+6. Import CSV Data
+
+The CSV data is used to import Hills, and optionally, user data.
+
+    - docker compose exec hills-app-php-fpm php artisan db:seed --class=CSVSeeder
 
 **Notes**
 
@@ -48,7 +55,7 @@ A Logger for Hills
 
 3. Create and watch the assets using vite
 
--   npm run dev
+    - npm run dev
 
 4. Using the containers
 
@@ -60,7 +67,7 @@ A Logger for Hills
     - Interacting with artisan
         - docker compose exec hills-app-php-fpm php artisan {command here}
     - Using Terminal within Container
-        - docker exec -ti {container-name} /bin/sh
+        - docker compose exec {container-name} /bin/sh
     - View Mail
         - http://hills.test:8882/
         - mailtrap/mailtrap
@@ -69,6 +76,8 @@ A Logger for Hills
 
     - Run the php unit tests
         - docker compose exec hills-app-php-fpm php artisan test
+    - Run the laravel dusk tests
+        - docker compose exec hills-app-php-fpm php artisan dusk
     - Run the vue unit tests
         - npm run test:unit
     - Run the cypress component tests
