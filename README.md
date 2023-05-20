@@ -27,9 +27,20 @@ A Logger for Hills
         - `127.0.0.1        hills.test`
 
 5. Create Database
+
     - docker compose exec hills-app-php-fpm php artisan migrate:install
     - docker compose exec hills-app-php-fpm php artisan migrate
     - docker compose exec hills-app-php-fpm php artisan db:seed
+
+6. Import Data
+
+The hills, and optionally user data, can be imported from CSV.
+
+    - docker compose exec hills-app-php-fpm php artisan db:seed --class=CSVSeeder
+
+7. Build Assets
+
+    - npm run build
 
 **Notes**
 
@@ -46,9 +57,9 @@ A Logger for Hills
 
     - docker compose logs -f
 
-3. Create and watch the assets using vite
+3. Create and watch the dev assets using vite
 
--   npm run dev
+    - npm run dev
 
 4. Using the containers
 
@@ -69,6 +80,9 @@ A Logger for Hills
 
     - Run the php unit tests
         - docker compose exec hills-app-php-fpm php artisan test
+    - Run the laravel dusk tests
+        - docker compose exec hills-app-php-fpm php artisan dusk
+        - NOTE: requires vite built assets. If the dev hrm is running, it will fail.
     - Run the vue unit tests
         - npm run test:unit
     - Run the cypress component tests
