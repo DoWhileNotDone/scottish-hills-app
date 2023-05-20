@@ -34,8 +34,7 @@ A Logger for Hills
 
 6. Import Data
 
-The hills, and optionally user data, can be imported from CSV.
-
+    - The hills, and optionally user data, can be imported from CSV.
     - docker compose exec hills-app-php-fpm php artisan db:seed --class=CSVSeeder
 
 7. Build Assets
@@ -44,7 +43,7 @@ The hills, and optionally user data, can be imported from CSV.
 
 **Notes**
 
--   Uses PHP v8 and MySQL v8 - Laravel 10 with Vue 3, Pinia, Inertia, and tailwind css.
+-   Uses PHP v8 and MySQL v8 - Laravel 10 with Vue 3, Pinia, Inertia, and Tailwind css.
 -   Built using node v18.
 
 ## Running Locally
