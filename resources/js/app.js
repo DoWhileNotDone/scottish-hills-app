@@ -15,11 +15,14 @@ createInertiaApp({
     resolve: name =>
         resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob('./Pages/**/*.vue')),
     setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
-            .use(plugin)
-            .use(pinia)
-            .use(ZiggyVue, Ziggy)
-            .mount(el);
+        return (
+            createApp({ render: () => h(App, props) })
+                .use(plugin)
+                .use(pinia)
+                //Ziggy is a global config object, injected in a script tag by php
+                .use(ZiggyVue, Ziggy)
+                .mount(el)
+        );
     },
     progress: {
         color: '#4B5563',
