@@ -24,6 +24,7 @@ jobs:
               uses: php-actions/composer@v6
               with:
                   php_version: "8.2"
+                  php_extensions: zip
             - name: Store Composer Cache Directory
               id: store-composer-cache
               uses: actions/cache/save@v3
@@ -68,6 +69,10 @@ jobs:
                 LARAVEL_BYPASS_ENV_CHECK: 1
             - name: PHP Test Step
               run: docker exec hills-app-php-fpm php artisan test
+            - name: Laravel Dusk Test Step
+              run: |
+                  docker exec hills-app-php-fpm php artisan dusk:chrome-driver
+                  docker exec hills-app-php-fpm php artisan dusk
             - name: Upload coverage reports to Codecov
               uses: codecov/codecov-action@v3
             # - name: Todo Upload Assets
