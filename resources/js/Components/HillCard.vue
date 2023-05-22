@@ -12,6 +12,8 @@ defineProps({
 <template>
     <!-- Hill Card - Grid [Image|Text]  -->
     <div
+        name="hill-card"
+        data-test="hill-card"
         class="rounded-l-full grid grid-cols-2 transition duration-500 ease-in-out rounded bg-white hover:bg-gray-100 transform hover:-translate-y-1 hover:scale-105 w-full hover:no-underline shadow"
     >
         <div>
@@ -22,7 +24,11 @@ defineProps({
         </div>
         <div class="flex flex-col justify-between text-center m-5">
             <div>
-                <div data-test="hill-card-name" class="text-gray-900 font-bold text-l mb-2">
+                <div
+                    name="hill-card-name"
+                    data-test="hill-card-name"
+                    class="text-gray-900 font-bold text-l mb-2"
+                >
                     {{ hill.name }}
                 </div>
                 <div data-test="hill-card-height" class="text-gray-700">

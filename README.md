@@ -81,7 +81,7 @@ A Logger for Hills
         - docker compose exec hills-app-php-fpm php artisan test
     - Run the laravel dusk tests
         - docker compose exec hills-app-php-fpm php artisan dusk
-        - NOTE: requires vite built assets. If the dev hrm is running, it will fail.
+        - NOTE: requires vite built assets. If `npm run dev` server is running, it will fail.
     - Run the vue unit tests
         - npm run test:unit
     - Run the cypress component tests
