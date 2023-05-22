@@ -89,3 +89,9 @@ A Logger for Hills
 
 6. Stop the running containers
     - docker compose down --remove-orphans
+
+## Image Credits
+
+[Hill Image](public/images/hill-card.jpg)
+
+Photo by <a href="https://unsplash.com/@mvds?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Mads Schmidt Rasmussen</a> on <a href="https://unsplash.com/photos/xfngap_DToE?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
