@@ -14,7 +14,7 @@ const { filteredHills } = storeToRefs(useHillsStore());
                 Hill List
             </h1>
             <!-- Hills - Grid 1 or 2 cols -->
-            <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
+            <div id="hill-list" class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
                 <template v-for="hill in filteredHills" :key="hill.id">
                     <transition name="hills" appear>
                         <HillCard :hill="hill"></HillCard>
