@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Hill;
 use App\Models\User;
-use App\Models\UserTrip;
+use App\Models\Trip;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -20,9 +20,12 @@ class TripHillFactory extends Factory
      */
     public function definition(): array
     {
+        $user = User::factory();
+
         return [
-            'user_trip_id' => UserTrip::factory([
-                'user_id'  => User::factory(),
+            'user_id'      => $user,
+            'trip_id' => Trip::factory([
+                'user_id'  => $user,
             ]),
             'hill_id'      => Hill::factory(),
         ];

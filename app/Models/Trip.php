@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class UserTrip extends Model
+class Trip extends Model
 {
     use HasFactory;
 
@@ -24,5 +25,13 @@ class UserTrip extends Model
     public function hills(): BelongsToMany
     {
         return $this->belongsToMany(Hill::class, 'trip_hills');
+    }
+
+    /**
+     * Get the trips that this hill is in.
+     */
+    public function tripHills(): HasMany
+    {
+        return $this->hasMany(TripHill::class);
     }
 }

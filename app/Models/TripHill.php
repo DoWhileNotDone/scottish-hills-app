@@ -3,22 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\Pivot;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class TripHill extends Model
+class TripHill extends Pivot
 {
     use HasFactory;
 
+    protected $table = 'trip_hills';
+
     public $timestamps = false;
 
-    public function hill(): HasOne
+    public function hill(): BelongsTo
     {
-        return $this->hasOne(Hill::class);
+        return $this->belongsTo(Hill::class);
     }
 
-    public function trip(): HasOne
+    public function trip(): BelongsTo
     {
-        return $this->hasOne(UserTrip::class);
+        return $this->belongsTo(Trip::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

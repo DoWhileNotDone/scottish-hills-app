@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -44,6 +45,16 @@ class User extends Authenticatable
 
     public function trips(): HasMany
     {
-        return $this->hasMany(UserTrip::class);
+        return $this->hasMany(Trip::class);
+    }
+
+    public function hills(): BelongsToMany
+    {
+        //TODO: Check speed of this in comparison to laravel collection
+
+        return $this->belongsToMany(Hill::class, 'trip_hills')
+            ->as('hills')
+            ->using(TripHill::class)
+            ->withPivot(['user_id']);
     }
 }
