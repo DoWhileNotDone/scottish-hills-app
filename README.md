@@ -6,40 +6,58 @@ A Logger for Hills
 
 1. Build and tag the docker images
 
-    - docker compose build
-    - **Note**: On first run, this will pull down, build and tag the initial images required
+```
+docker compose build
+```
+
+-   **Note**: On first run, this will pull down, build and tag the initial images required
 
 2. Start the docker containers
 
-    - docker-compose up
-    - **Note**: On first run, this will pull down standalone images
+```
+docker-compose up
+```
+
+-   **Note**: On first run, this will pull down standalone images
 
 3. Install package dependencies
 
-    - docker-compose exec hills-app-php-fpm composer install
-    - npm install
+```
+docker-compose exec hills-app-php-fpm composer install
+npm install
+```
 
 4. Configure site
 
-    - cp .env.docker .env
-    - docker-compose exec hills-app-php-fpm php artisan key:generate
-    - Add the following line to /etc/hosts, to create an alias to the site:
-        - `127.0.0.1        hills.test`
+```
+cp .env.docker .env
+docker-compose exec hills-app-php-fpm php artisan key:generate
+```
+
+-   Add the following line to /etc/hosts, to create an alias to the site:
+    -   `127.0.0.1        hills.test`
 
 5. Create Database
 
-    - docker compose exec hills-app-php-fpm php artisan migrate:install
-    - docker compose exec hills-app-php-fpm php artisan migrate
-    - docker compose exec hills-app-php-fpm php artisan db:seed
+```
+docker compose exec hills-app-php-fpm php artisan migrate:install
+docker compose exec hills-app-php-fpm php artisan migrate
+docker compose exec hills-app-php-fpm php artisan db:seed
+```
 
 6. Import Data
 
-    - The hills, and optionally user data, can be imported from CSV.
-    - docker compose exec hills-app-php-fpm php artisan db:seed --class=CSVSeeder
+-   The hills, and optionally user data, can be imported from CSV.
+
+```
+docker compose exec hills-app-php-fpm php artisan db:seed --class=CSVSeeder
+```
 
 7. Build Assets
 
-    - npm run build
+```
+npm run build
+```
 
 **Notes**
 
@@ -50,15 +68,21 @@ A Logger for Hills
 
 1. Start the docker containers (detached, so run in the background)
 
-    - docker compose up -d
+```
+docker compose up -d
+```
 
 2. View the docker logs
 
-    - docker compose logs -f
+```
+docker compose logs -f
+```
 
 3. Create and watch the dev assets using vite
 
-    - npm run dev
+```
+npm run dev
+```
 
 4. Using the containers
 
@@ -77,18 +101,37 @@ A Logger for Hills
 
 5. Running the tests
 
-    - Run the php unit tests
-        - docker compose exec hills-app-php-fpm php artisan test
-    - Run the laravel dusk tests
-        - docker compose exec hills-app-php-fpm php artisan dusk
-        - NOTE: requires vite built assets. If `npm run dev` server is running, it will fail.
-    - Run the vue unit tests
-        - npm run test:unit
-    - Run the cypress component tests
-        - npm run test:cypress
+-   Run the php unit tests
+
+```
+docker compose exec hills-app-php-fpm php artisan test
+```
+
+-   Run the laravel dusk tests
+
+```
+docker compose exec hills-app-php-fpm php artisan dusk
+```
+
+NOTE: requires vite built assets. If `npm run dev` server is running, it will fail.
+
+-   Run the vue unit tests
+
+```
+npm run test:unit
+```
+
+-   Run the cypress component tests
+
+```
+npm run test:cypress
+```
 
 6. Stop the running containers
-    - docker compose down --remove-orphans
+
+```
+docker compose down --remove-orphans
+```
 
 ## Image Credits
 
