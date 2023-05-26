@@ -2,7 +2,7 @@
 
 namespace Tests\Browser;
 
-use Database\Seeders\MunrosFromCSVSeeder;
+use Database\Seeders\Import\HillsFromCSVSeeder;
 use Illuminate\Foundation\Testing\DatabaseTruncation;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
@@ -15,7 +15,7 @@ class HillListGuestUserTest extends DuskTestCase
     {
         parent::setUp();
 
-        $this->seed(MunrosFromCSVSeeder::class);
+        $this->seed(HillsFromCSVSeeder::class);
     }
 
     public function testSeeHillPageHeader(): void

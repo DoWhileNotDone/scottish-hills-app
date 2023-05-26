@@ -6,7 +6,7 @@ namespace Tests\Database;
 
 use App\Models\Hill;
 use App\Models\Group;
-use Database\Seeders\MunrosFromCSVSeeder;
+use Database\Seeders\Import\HillsFromCSVSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -19,7 +19,7 @@ class MunroImportIntegrityTest extends TestCase
      *
      * @var string
      */
-    protected $seeder = MunrosFromCSVSeeder::class;
+    protected $seeder = HillsFromCSVSeeder::class;
 
     public function test_that_a_long_hill_name_is_captured(): void
     {

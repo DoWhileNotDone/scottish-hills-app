@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Database\Seeders\Import\HillsFromCSVSeeder;
+use Database\Seeders\Import\TripsFromCSVSeeder;
+use Database\Seeders\Import\UsersFromCSVSeeder;
 
 class CSVSeeder extends Seeder
 {
@@ -12,7 +15,9 @@ class CSVSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            MunrosFromCSVSeeder::class,
+            UsersFromCSVSeeder::class,
+            HillsFromCSVSeeder::class,
+            TripsFromCSVSeeder::class,
         ]);
     }
 }
