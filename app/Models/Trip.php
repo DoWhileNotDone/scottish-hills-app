@@ -20,7 +20,7 @@ class Trip extends Model
     }
 
     /**
-     * Get the trips that this hill is in.
+     * Get the hills that this trip contains.
      */
     public function hills(): BelongsToMany
     {
@@ -28,7 +28,7 @@ class Trip extends Model
     }
 
     /**
-     * Get the trips that this hill is in.
+     * Get the tripshills that this trip has.
      */
     public function tripHills(): HasMany
     {
