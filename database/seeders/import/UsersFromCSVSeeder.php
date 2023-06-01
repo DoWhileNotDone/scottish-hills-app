@@ -2,8 +2,10 @@
 
 namespace Database\Seeders\Import;
 
+use App\Events\UserImported;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UsersFromCSVSeeder extends ImportFromCSVSeeder
@@ -16,14 +18,14 @@ class UsersFromCSVSeeder extends ImportFromCSVSeeder
             return Str::squish($value);
         });
 
-        User::firstOrCreate(
-            [
-                'email' => $userData->get('email'),
-            ],
-            [
-                ...$userData->only(['name'])->toArray(),
-                'password' => Str::password(10),
-            ],
-        );
+        User::where('email', $userData->get('email'))->firstOr(function () use ($userData) {
+            //Only trigger registration event to new users
+            $user = User::create([
+                ...$userData->only(['name', 'email'])->toArray(),
+                'password' => Hash::make(Str::password(10)),
+            ]);
+
+            event(new UserImported($user));
+        });
     }
 }
